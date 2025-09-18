@@ -1,7 +1,7 @@
 <?php
 
-$num = 15;
-function numeroPrimo($num)
+
+function numeroPrimo($num=15)
 {
     for ($i = 2; $i < $num; $i++) {
         if (($num % $i) == 0) {
@@ -16,4 +16,5 @@ if(numeroPrimo($num)){
 }else{
     echo 'No es primo';
 }
+
 ?>
