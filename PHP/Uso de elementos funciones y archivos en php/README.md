@@ -27,6 +27,19 @@ Crea un fichero por ejercicio: `ejercicio01.php` … `ejercicio30.php`.
 datos.txt
 Hola Mundo desde PHP
 ```
+```php
+<?php
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+    
+    if (!file_exists("Tests/datos.txt")) {
+        file_put_contents("Tests/datos.txt", "Hola mundo desde php");
+    }
+    echo file_get_contents("Tests/datos.txt");
+?>
+```
+
 
 ---
 
@@ -45,7 +58,25 @@ numeros.txt
 ...
 10
 ```
+```php
+<?php
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
 
+    if (!file_exists("Tests/numeros.txt")) {
+        $file = fopen("Tests/numeros.txt", "w");
+        
+        for ($i=1; $i < 11; $i++) { 
+            fwrite($file, $i);
+        }
+
+        fclose($file);
+    }
+
+    echo file_get_contents("Tests/numeros.txt");
+?>
+```
 ---
 
 ### 3) Contar palabras en un fichero
@@ -59,7 +90,19 @@ numeros.txt
 texto.txt
 PHP es muy divertido y potente.
 ```
+```php
+<?php
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+    
+    if (!file_exists("Tests/texto.txt")) {
+        file_put_contents("Tests/texto.txt", "PHP es muy divertido y potente");
+    }
 
+    echo str_word_count(file_get_contents("Tests/texto.txt"));
+?>
+```
 ---
 
 ### 4) Escribir y leer array en fichero
@@ -77,7 +120,24 @@ Marta
 Carlos
 Julia
 ```
+```php
+<?php
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
 
+    if (!file_exists("Tests/nombres.txt")) {
+        $file = fopen("Tests/nombres.txt", "w");
+        $nombres = ["Ana", "Luis", "Marta", "Carlos", "Julia"];
+        foreach ($nombres as $key => $value) {
+            fwrite($file, "$value\n");
+        }
+        fclose($file);
+    }
+
+    echo file_get_contents("Tests/nombres.txt");
+?>
+```
 ---
 
 ### 5) Copiar contenido de un fichero a otro
@@ -92,11 +152,32 @@ origen.txt
 Este es el archivo original.
 ```
 
+
 **Ejemplo de fichero resultante:**
 
 ```code
 copia.txt
 Este es el archivo original.
+```
+
+```php
+<?php
+
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+    
+    if (!file_exists("Tests/origen.txt")) {
+        file_put_contents("Tests/origen.txt", "Este es el archivo original");
+    }
+
+    if (!file_exists("Tests/copia.txt")) {
+        copy("Tests/origen.txt", "Tests/copia.txt");
+    }
+    
+    echo file_get_contents("Tests/copia.txt");
+
+?>
 ```
 
 ---
@@ -120,6 +201,27 @@ frase_invertida.txt
 PHP aloH
 ```
 
+```php
+<?php
+
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+    
+    if (!file_exists("Tests/frase.txt")) {
+        file_put_contents("Tests/frase.txt", "Hola PHP");
+    }
+
+    $textoInvertido = strrev(file_get_contents("Tests/frase.txt"));
+
+    if (!file_exists("Tests/frase_invertida.txt")) {
+        file_put_contents("Tests/frase_invertida.txt", $textoInvertido);
+    }
+
+    echo file_get_contents("Tests/frase_invertida.txt");
+?>
+```
+
 ---
 
 ### 7) Calcular suma desde fichero
@@ -133,6 +235,26 @@ PHP aloH
 datos_numericos.txt
 10,20,30,40
 ```
+
+```php
+<?php
+
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+    
+    if (!file_exists("Tests/datos_numericos.txt")) {
+        file_put_contents("Tests/datos_numericos.txt", "10,20,30,40");
+    }
+
+    $content = file_get_contents("Tests/datos_numericos.txt");
+
+    $explodedContent = explode(",", $content);
+
+    echo array_sum($explodedContent);
+?>
+```
+
 
 ---
 
@@ -149,6 +271,28 @@ tabla5.txt
 5 x 2 = 10
 ...
 5 x 10 = 50
+```
+
+```php
+<?php
+
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+
+    if (!file_exists("Tests/tabla5.txt")) {
+        $file = fopen("Tests/tabla5.txt", "w");
+        $multiplyingNum = 5;
+        for ($i=1; $i < 11; $i++) { 
+            $result = $multiplyingNum * $i;
+            fwrite($file, $multiplyingNum . " x " . $i . " = " . $result . "\n");
+        }
+
+        fclose($file);
+    }
+
+    echo file_get_contents("Tests/tabla5.txt");
+?>
 ```
 
 ---
@@ -226,6 +370,29 @@ canciones.txt
 Hysteria
 Bohemian Rhapsody
 Africa
+```
+
+```php
+<?php
+
+    if(!file_exists("Tests/")) {
+        mkdir("Tests");
+    }
+
+    if (!file_exists("Tests/canciones.txt")) {
+        file_put_contents("Tests/canciones.txt", "Hysteria\nBphemian Rhapsody\nAfrica\n");
+    }
+
+    $content = file_get_contents("Tests/canciones.txt");
+
+    $explodedContent = explode('\n', $content);
+
+    // array_rand()
+
+    print_r($explodedContent);
+
+
+?>
 ```
 
 ---
